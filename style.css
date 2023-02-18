@@ -1,0 +1,64 @@
+#ueberschrift {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#unterschrift {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+body {
+    background: linear-gradient(blue, red);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#main{
+    width:100%;
+    height:75%;
+}
+
+#login_register {
+    width: 50%;
+    height: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+
+
+
+#login{
+    float: right;
+    
+}
+
+#register{
+    float:left;
+}
+
+.loginbutton {
+    background: linear-gradient(white, grey);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    border: 1px solid black;
+
+    width: 100px;
+    height: 100px;
+    margin-bottom: auto;
+   
+    
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+
+
+
+}
