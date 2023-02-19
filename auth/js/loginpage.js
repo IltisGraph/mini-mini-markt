@@ -25,6 +25,9 @@ const analytics = getAnalytics(app);
 //the actual Code!
 
 var isloggedin = false;
+var user = "null";
+localStorage.setItem("user", null);
+localStorage.setItem("loggedin", false);
 
 
 function writeLogin(userName, password) {
@@ -45,12 +48,16 @@ function checkIfUserExists(userName, password) {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `logins/${userName}`)).then((snapshot) => {
         if (snapshot.exists()) {
-            if(snapshot.val()["password"] === password){
+            if (snapshot.val()["password"] === password) {
                 console.log("Logged in!");
                 isloggedin = true;
+                
+                localStorage.setItem("user", userName);
+                localStorage.setItem("loggedin", true);
+
                 //login
                 window.location.href = "./mini-mini-markt/markt.html";
-            } else{
+            } else {
                 console.log("Denied!")
                 isloggedin = false;
             }
@@ -71,12 +78,12 @@ function checkIfUserExists(userName, password) {
 
 // checkIfUserExists("Graph", "HelloWorld124")
 
-document.getElementById("fertigButton").onclick = function(){
+document.getElementById("fertigButton").onclick = function () {
 
     //check the user
     checkIfUserExists(document.getElementById("usernameInput").value, document.getElementById("passwordInput").value);
-    if(!isloggedin){
+    if (!isloggedin) {
         document.getElementById("wrongPassword").innerHTML = "Falsches Passwort!"
-    } 
+    }
 
 }

@@ -24,6 +24,13 @@ const analytics = getAnalytics(app);
 
 //the actual Code!
 
+var isloggedin = false;
+var user = "null";
+
+localStorage.setItem("user", null);
+localStorage.setItem("loggedin", false);
+
+
 
 function checkIfUsernameIsFree(userName, password) {
 
@@ -40,6 +47,10 @@ function checkIfUsernameIsFree(userName, password) {
                 password: document.getElementById("passwordInput").value
 
             });
+            isloggedin = true;
+            
+            localStorage.setItem("user", document.getElementById("usernameInput").value);
+            localStorage.setItem("loggedin", true);
             window.location.href = "./mini-mini-markt/markt.html";
         }
     }).catch((error) => {
