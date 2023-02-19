@@ -46,3 +46,40 @@ input{
     margin-right: auto;
     font-size: large;
 }
+
+@media only screen and (max-width: 550px){
+
+
+    .inputer{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+
+    /* input{
+        margin-top: 40px;
+        width: 70%;
+        height: 100%;
+        
+        
+    } */
+    input{
+        margin-top: 10px;
+    }
+
+    #loginbutton{
+        width: 70%;
+        height: 30%;
+        min-height: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    button{
+        margin-top: 20%;
+        height: 30%;
+        min-height: 50px; 
+    }
+
+
+}
