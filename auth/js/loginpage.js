@@ -48,12 +48,15 @@ function checkIfUserExists(userName, password) {
             if(snapshot.val()["password"] === password){
                 console.log("Logged in!");
                 isloggedin = true;
+                //login
+                window.location.href = "./mini-mini-markt/markt.html";
             } else{
-                console.log("denied")
+                console.log("Denied!")
                 isloggedin = false;
             }
         } else {
             console.log("No data available");
+            console.log("Denied!")
             isloggedin = false;
         }
     }).catch((error) => {
@@ -72,5 +75,8 @@ document.getElementById("fertigButton").onclick = function(){
 
     //check the user
     checkIfUserExists(document.getElementById("usernameInput").value, document.getElementById("passwordInput").value);
+    if(!isloggedin){
+        document.getElementById("wrongPassword").innerHTML = "Falsches Passwort!"
+    } 
 
 }
