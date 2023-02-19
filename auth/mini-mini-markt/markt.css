@@ -1,0 +1,41 @@
+
+body{
+    background: linear-gradient(blue, red);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#header{
+    width:100%;
+}
+
+#welcome{
+    text-align: center;
+}
+
+#unterschrift{
+    width: 100%;
+}
+
+.unterschriftbutton{
+    width:50%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.mainbutton{
+    width: 48%;
+    background: linear-gradient(grey, white);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border: 1px solid black;
+}
+
+#boughtbutton{
+    float:left;
+    
+}
+
+#logoutbutton{
+    float:right;
+}
