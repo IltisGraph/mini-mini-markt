@@ -26,3 +26,15 @@ input{
     margin-top: 40px;
     width: 100%;
 }
+
+#loginbutton{
+    width:30%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#fertigButton{
+    width: 102.9%;
+}
