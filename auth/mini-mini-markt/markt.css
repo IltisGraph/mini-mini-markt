@@ -28,7 +28,7 @@ body{
     background: linear-gradient(grey, white);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    border: 1px solid black;
+    border: 0px solid black;
 }
 
 #boughtbutton{
@@ -38,4 +38,73 @@ body{
 
 #logoutbutton{
     float:right;
+}
+
+#infobuttondiv{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+
+}
+
+#infobutton{
+    background: linear-gradient(grey, white);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border: 0px solid black;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+#main{
+    width: 100%;
+    height: auto;
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+
+.itemBox{
+    margin-top: 10px;
+    border: 1px solid black;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 160px;
+    
+}
+
+
+
+.itemPicture{
+    width: 49%;
+    height: 100%;
+    float: left;
+}
+
+.itemImage{
+    width: 100%;
+    height: 100%;
+    
+}
+
+.ItemDescription{
+    width: 49%;
+    height: 100%;
+    float: right;
+}
+
+.itemPreis{
+    margin-top: -20px;
+}
+
+.itemWerbeSatz{
+    margin-top: -10px;
 }

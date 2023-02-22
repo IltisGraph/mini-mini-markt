@@ -60,15 +60,18 @@ function checkIfUserExists(userName, password) {
             } else {
                 console.log("Denied!")
                 isloggedin = false;
+                document.getElementById("wrongPassword").innerHTML = "Falsches Passwort!";
             }
         } else {
             console.log("No data available");
-            console.log("Denied!")
+            console.log("Denied!");
+            document.getElementById("wrongPassword").innerHTML = "Falsches Passwort!";
             isloggedin = false;
         }
     }).catch((error) => {
         console.error(error);
         isloggedin = false;
+        document.getElementById("wrongPassword").innerHTML = "Error!";
     });
 
 
@@ -83,7 +86,7 @@ document.getElementById("fertigButton").onclick = function () {
     //check the user
     checkIfUserExists(document.getElementById("usernameInput").value, document.getElementById("passwordInput").value);
     if (!isloggedin) {
-        document.getElementById("wrongPassword").innerHTML = "Falsches Passwort!"
+        
     }
 
 }
