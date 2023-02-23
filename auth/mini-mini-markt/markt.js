@@ -29,6 +29,11 @@ for (let i = 1; i <= 7; i++) {
 
   // Create a new link element
   const link = document.createElement('a');
+  link.onclick = function(){
+    console.log("Clicked: " + i);
+    sessionStorage.setItem("selected", i);
+    console.log("finished!");
+  }
   link.href = 'view.html';
 
   // Create a new item picture element
@@ -70,6 +75,13 @@ for (let i = 1; i <= 7; i++) {
   // Append the item box to the target div
   targetDiv.appendChild(itemBox);
 }
+
+
+// const aElement = document.querySelector('.itemBox a');
+// aElement.addEventListener('click', function() {
+//   // Your code here
+//   window.alert("It worked!");
+// });
 
 
 
