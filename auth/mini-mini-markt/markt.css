@@ -40,7 +40,7 @@ body{
     float:right;
 }
 
-#infobuttondiv{
+.infobuttondiv{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -48,7 +48,7 @@ body{
 
 }
 
-#infobutton{
+.infobuttonc{
     background: linear-gradient(grey, white);
     background-repeat: no-repeat;
     background-attachment: fixed;
