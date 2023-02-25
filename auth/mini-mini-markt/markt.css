@@ -108,3 +108,24 @@ a{
 .itemWerbeSatz{
     margin-top: -10px;
 }
+
+@media only screen and (max-width: 670px) {
+    
+
+    .itemBox{
+        width: 100%;
+    }
+
+    .ItemDescription{
+        display: none;
+    }
+    .itemPicture{
+        width: 100%;
+        clear: both;
+        text-align: center;
+        
+    }
+    
+    
+
+}

@@ -1,5 +1,9 @@
 
-
+if(localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") == 'null'){
+    console.log("Not logged in!");
+    window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
+    throw new Error("User is not logged in!");
+}
 
 import { getDatabase, ref, child, get, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";

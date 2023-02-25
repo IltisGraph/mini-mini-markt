@@ -85,3 +85,14 @@ for (let i = 1; i <= 7; i++) {
 
 
 
+
+document.getElementById("logoutbutton").onclick = function() {
+  localStorage.setItem("loggedin", false);
+  localStorage.removeItem("user");
+  window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
+}
+
+document.getElementById("boughtbutton").onclick = function() {
+  window.location.href = "warenkorb.html";
+
+}
