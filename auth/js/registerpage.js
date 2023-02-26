@@ -47,8 +47,19 @@ function checkIfUsernameIsFree(userName, password) {
                 password: document.getElementById("passwordInput").value
 
             });
+            try {
+                set(ref(db, "veri/" + document.getElementById("usernameInput").value), {
+                    name: document.getElementById("nameInput").value,
+                    last_name: document.getElementById("last_nameInput").value,
+                    Nickname: document.getElementById("usernameInput"),
+
+                });
+            } catch(e){
+                document.getElementById("wrongPassword").innerHTML = e;
+                throw new Error(e);
+            }
             isloggedin = true;
-            
+
             localStorage.setItem("user", document.getElementById("usernameInput").value);
             localStorage.setItem("loggedin", true);
             window.location.href = "./mini-mini-markt/markt.html";

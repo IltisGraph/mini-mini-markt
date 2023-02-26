@@ -1,0 +1,28 @@
+
+body{
+    background: linear-gradient(blue, red);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#header{
+    text-align: center;
+}
+
+#main{
+    width: 100%;
+}
+.mButton{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+#next{
+    width: 40%;
+    text-align: center;
+}
+
+#userInfo{
+    text-align: center;
+}

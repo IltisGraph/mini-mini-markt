@@ -1,10 +1,10 @@
 console.log(localStorage.getItem("loggedin"));
 console.log(localStorage.getItem("user"));
 console.log(localStorage.getItem("loggedin") == "false" || localStorage.getItem("user") == "null");
-if(localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") == 'null'){
-    console.log("Not logged in!");
-    window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
-    throw new Error("User is not logged in!");
+if (localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") == 'null') {
+  console.log("Not logged in!");
+  window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
+  throw new Error("User is not logged in!");
 }
 
 let userName = localStorage.getItem("user");
@@ -29,7 +29,7 @@ for (let i = 1; i <= 7; i++) {
 
   // Create a new link element
   const link = document.createElement('a');
-  link.onclick = function(){
+  link.onclick = function () {
     console.log("Clicked: " + i);
     sessionStorage.setItem("selected", i);
     console.log("finished!");
@@ -86,13 +86,59 @@ for (let i = 1; i <= 7; i++) {
 
 
 
-document.getElementById("logoutbutton").onclick = function() {
+document.getElementById("logoutbutton").onclick = function () {
   localStorage.setItem("loggedin", false);
   localStorage.removeItem("user");
   window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
 }
 
-document.getElementById("boughtbutton").onclick = function() {
+document.getElementById("boughtbutton").onclick = function () {
   window.location.href = "warenkorb.html";
 
 }
+
+
+import { getDatabase, ref, child, get, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD0X_femAURn9g2LMP99dV13WaXU22W0ks",
+  authDomain: "mini-mini-markt.firebaseapp.com",
+  projectId: "mini-mini-markt",
+  storageBucket: "mini-mini-markt.appspot.com",
+  messagingSenderId: "1001531893883",
+  appId: "1:1001531893883:web:deabd99888ce9acdb91ade",
+  measurementId: "G-QPY0DW5MJ4",
+  databaseURL: "https://mini-mini-markt-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+//check if the user is an admin and add the admin control panel if needed;
+
+const dbRef = ref(getDatabase());
+get(child(dbRef, `logins/${localStorage.getItem("user")}`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val()["rank"]);
+    if (snapshot.val()["rank"] === "admin") {
+      //if the user is admin
+      document.getElementById("unterschrift").innerHTML += `
+      <div class="infobuttondiv">
+            <button id="adminButton" class="infobuttonc">Verifizierung</button>
+      </div>
+      `;
+
+      document.getElementById("adminButton").onclick = function () {
+        localStorage.setItem("isAdmin", true);
+        window.location.href = "./admin.html";
+      }
+    }
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
