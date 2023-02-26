@@ -1,5 +1,5 @@
 
-if(localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") == 'null'){
+if (localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") == 'null') {
     console.log("Not logged in!");
     window.location.href = "https://iltisgraph.github.io/mini-mini-markt/";
     throw new Error("User is not logged in!");
@@ -24,19 +24,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+let isSiteLoaded = false;
+
+let info;
+
 const dbRef = ref(getDatabase());
 get(child(dbRef, `items/${sessionStorage.getItem("selected")}`)).then((snapshot) => {
     if (snapshot.exists()) {
         console.log(snapshot.val());
-        const info = snapshot.val();
+        info = snapshot.val();
         let amount = "/";
-        console.log(typeof(info["amount"]));
+        console.log(typeof (info["amount"]));
 
-        if(typeof(info["amount"]) === "number"){
+        if (typeof (info["amount"]) === "number") {
             amount += info["amount"];
             amount += "g";
         }
-        else{
+        else {
             console.error();
             amount = "";
         }
@@ -61,7 +65,9 @@ get(child(dbRef, `items/${sessionStorage.getItem("selected")}`)).then((snapshot)
       <button id="buybutton">In den Warenkorb</button>
     </div>
   `;
+        divElement.id = "d";
         parentElement.appendChild(divElement);
+        isSiteLoaded = true;
 
         const counterValue = document.getElementById("counter-value");
 
@@ -132,6 +138,61 @@ const numItems = 1; // replace 10 with the desired number of items
 //         counterValue.value--;
 //     }
 // });
+
+
+//use timeouts to constantly check, wheather the site is already loaded
+
+
+function checkAdminPanel() {
+    console.log("Checking if site is loaded!");
+    if (!isSiteLoaded) {
+        setTimeout(checkAdminPanel, 200);
+        console.log("check failed");
+        return;
+    }
+    console.log("Check passed!");
+    //if site is loaded check if user is admin and is he is, add the input fields
+    get(child(dbRef, `logins/${localStorage.getItem("user")}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+            if (snapshot.val()["rank"] === "employee") {
+                console.log("You are an employee!");
+                //add the input fields
+                document.getElementById("d").innerHTML += `
+                <input type="text" placeholder="Name" value="${info["name"]}" id="newName">
+                <input type="text" placeholder="Preis" value="${info["price"]}" id="newPrice">
+                <input type="text" placeholder="Spruch" value="${info["slogan"]}" id="newSlogan">
+                <input type="text" placeholder="Beschreibung" value="${info["description"]} " id="newDescription">
+                <button id="acceptnewData" style="margin-top: 10px; padding-right: 10%; margin-left: auto; margin-right: auto; text-align:center">Fertig</button>
+                `;
+
+                document.getElementById("acceptnewData").onclick = function () {
+                    console.log("getting the new data");
+                    const nPrice = document.getElementById("newPrice").value;
+                    const nSlogan = document.getElementById("newSlogan").value;
+                    const nDescription = document.getElementById("newDescription").value;
+                    const nName = document.getElementById("newName").value;
+                    const db = getDatabase();
+                    console.log("Started writing");
+                    set(ref(db, 'items/' + sessionStorage.getItem("selected")), {
+                        price: nPrice,
+                        description: nDescription,
+                        slogan: nSlogan,
+                        name: nName
+                    });
+                    console.log("Finished writing the new data!");
+                }
+
+            }
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
+setTimeout(checkAdminPanel, 200);
 
 
 
