@@ -51,7 +51,7 @@ function checkIfUsernameIsFree(userName, password) {
                 set(ref(db, "veri/" + document.getElementById("usernameInput").value), {
                     name: document.getElementById("nameInput").value,
                     last_name: document.getElementById("last_nameInput").value,
-                    Nickname: document.getElementById("usernameInput"),
+                    Nickname: document.getElementById("usernameInput").value,
 
                 });
             } catch(e){

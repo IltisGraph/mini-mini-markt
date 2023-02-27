@@ -7,6 +7,39 @@ if (localStorage.getItem("loggedin") == 'false' || localStorage.getItem("user") 
   throw new Error("User is not logged in!");
 }
 
+import { getDatabase, ref, child, get, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD0X_femAURn9g2LMP99dV13WaXU22W0ks",
+  authDomain: "mini-mini-markt.firebaseapp.com",
+  projectId: "mini-mini-markt",
+  storageBucket: "mini-mini-markt.appspot.com",
+  messagingSenderId: "1001531893883",
+  appId: "1:1001531893883:web:deabd99888ce9acdb91ade",
+  measurementId: "G-QPY0DW5MJ4",
+  databaseURL: "https://mini-mini-markt-default-rtdb.europe-west1.firebasedatabase.app"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+let items;
+
+const dbr = ref(getDatabase());
+get(child(dbr, `items`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+    items = snapshot.val();
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
 let userName = localStorage.getItem("user");
 
 
@@ -22,7 +55,7 @@ document.getElementById("welcome").innerHTML = "Willkommen " + userName + "!";
 const targetDiv = document.querySelector('#main');
 
 // Create three item boxes with different names and images
-for (let i = 1; i <= 7; i++) {
+for (let i = 1; i <= 8; i++) {
   // Create a new item box element
   const itemBox = document.createElement('div');
   itemBox.classList.add('itemBox');
@@ -98,24 +131,6 @@ document.getElementById("boughtbutton").onclick = function () {
 }
 
 
-import { getDatabase, ref, child, get, set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD0X_femAURn9g2LMP99dV13WaXU22W0ks",
-  authDomain: "mini-mini-markt.firebaseapp.com",
-  projectId: "mini-mini-markt",
-  storageBucket: "mini-mini-markt.appspot.com",
-  messagingSenderId: "1001531893883",
-  appId: "1:1001531893883:web:deabd99888ce9acdb91ade",
-  measurementId: "G-QPY0DW5MJ4",
-  databaseURL: "https://mini-mini-markt-default-rtdb.europe-west1.firebasedatabase.app"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 //check if the user is an admin and add the admin control panel if needed;
 
