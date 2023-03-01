@@ -1,0 +1,11 @@
+
+
+body{
+    background: linear-gradient(blue, red);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#header{
+    text-align: center;
+}

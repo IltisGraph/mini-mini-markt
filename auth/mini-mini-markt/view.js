@@ -81,7 +81,7 @@ get(child(dbRef, `items/${sessionStorage.getItem("selected")}`)).then((snapshot)
             console.log("Started writing to db");
             console.log("Writing to address: " + `logins/${localStorage.getItem("user")}/warenkorb/1`);
             console.log("Writing " + counterValue.value + "as amount");
-            set(ref(db, `logins/${localStorage.getItem("user")}/warenkorb/1`), {
+            set(ref(db, `logins/${localStorage.getItem("user")}/warenkorb/${sessionStorage.getItem("selected")}`), {
                 amount: counterValue.value
             });
             console.log("Wrote to db!");

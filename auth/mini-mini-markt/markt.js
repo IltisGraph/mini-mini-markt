@@ -213,6 +213,20 @@ get(child(dbRef, `logins/${localStorage.getItem("user")}`)).then((snapshot) => {
         localStorage.setItem("isAdmin", true);
         window.location.href = "./admin.html";
       }
+    } else if (snapshot.val()["rank"] === "employee") {
+      //add view of orders
+      console.log("an employee");
+      document.getElementById("unterschrift").innerHTML += `
+      <div class="infobuttondiv">
+            <button id="orderButton" class="infobuttonc">Bestellungen</button>
+      </div>
+      `;
+
+      //add function to this button
+      document.getElementById("orderButton").onclick = function () {
+        localStorage.setItem("isEmployee", true);
+        window.location.href = "./orders.html";
+      }
     }
   } else {
     console.log("No data available");
@@ -220,3 +234,4 @@ get(child(dbRef, `logins/${localStorage.getItem("user")}`)).then((snapshot) => {
 }).catch((error) => {
   console.error(error);
 });
+
