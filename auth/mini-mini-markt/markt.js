@@ -27,12 +27,75 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 let items;
+let itemNames;
 
 const dbr = ref(getDatabase());
 get(child(dbr, `items`)).then((snapshot) => {
   if (snapshot.exists()) {
     console.log(snapshot.val());
     items = snapshot.val();
+    itemNames = Object.keys(items);
+    // console.log(itemNames);
+    //put all of the elements onto the website
+    // Get the target div element
+    const targetDiv = document.querySelector('#main');
+
+    // Create three item boxes with different names and images
+    for (let i = 1; i <= 8; i++) {
+      // Create a new item box element
+      const itemBox = document.createElement('div');
+      itemBox.classList.add('itemBox');
+
+      // Create a new link element
+      const link = document.createElement('a');
+      link.onclick = function () {
+        console.log("Clicked: " + i);
+        sessionStorage.setItem("selected", i);
+        console.log("finished!");
+      }
+      link.href = 'view.html';
+
+      // Create a new item picture element
+      const itemPicture = document.createElement('div');
+      itemPicture.classList.add('itemPicture');
+
+      // Create a new image element
+      const image = document.createElement('img');
+      image.classList.add('itemImage');
+      image.src = `./img/(${i}).jpg`;
+      itemPicture.appendChild(image);
+
+      // Create a new item description element
+      const itemDescription = document.createElement('div');
+      itemDescription.classList.add('ItemDescription');
+
+      // Create a new h2 element for the item name
+      const itemName = document.createElement('h2');
+      itemName.textContent = `${items[itemNames[i - 1]]["name"]}`;
+      itemDescription.appendChild(itemName);
+
+      // Create a new p element for the item price
+      const itemPrice = document.createElement('p');
+      itemPrice.classList.add('itemPreis');
+      itemPrice.textContent = `Preis: ${items[itemNames[i - 1]]["price"] / 100}€/100g`;
+      itemDescription.appendChild(itemPrice);
+
+      // Create a new p element for the item slogan
+      const itemSlogan = document.createElement('p');
+      itemSlogan.classList.add('itemWerbeSatz');
+      itemSlogan.textContent = items[itemNames[i - 1]]["slogan"];
+      itemDescription.appendChild(itemSlogan);
+
+      // Append the link, item picture and item description to the item box
+      link.appendChild(itemPicture);
+      link.appendChild(itemDescription);
+      itemBox.appendChild(link);
+
+      // Append the item box to the target div
+      targetDiv.appendChild(itemBox);
+    }
+
+
   } else {
     console.log("No data available");
   }
@@ -51,63 +114,63 @@ document.getElementById("welcome").innerHTML = "Willkommen " + userName + "!";
 // document.getElementById("main").innerHTML = ""
 
 
-// Get the target div element
-const targetDiv = document.querySelector('#main');
+// // Get the target div element
+// const targetDiv = document.querySelector('#main');
 
-// Create three item boxes with different names and images
-for (let i = 1; i <= 8; i++) {
-  // Create a new item box element
-  const itemBox = document.createElement('div');
-  itemBox.classList.add('itemBox');
+// // Create three item boxes with different names and images
+// for (let i = 1; i <= 8; i++) {
+//   // Create a new item box element
+//   const itemBox = document.createElement('div');
+//   itemBox.classList.add('itemBox');
 
-  // Create a new link element
-  const link = document.createElement('a');
-  link.onclick = function () {
-    console.log("Clicked: " + i);
-    sessionStorage.setItem("selected", i);
-    console.log("finished!");
-  }
-  link.href = 'view.html';
+//   // Create a new link element
+//   const link = document.createElement('a');
+//   link.onclick = function () {
+//     console.log("Clicked: " + i);
+//     sessionStorage.setItem("selected", i);
+//     console.log("finished!");
+//   }
+//   link.href = 'view.html';
 
-  // Create a new item picture element
-  const itemPicture = document.createElement('div');
-  itemPicture.classList.add('itemPicture');
+//   // Create a new item picture element
+//   const itemPicture = document.createElement('div');
+//   itemPicture.classList.add('itemPicture');
 
-  // Create a new image element
-  const image = document.createElement('img');
-  image.classList.add('itemImage');
-  image.src = `./img/(${i}).jpg`;
-  itemPicture.appendChild(image);
+//   // Create a new image element
+//   const image = document.createElement('img');
+//   image.classList.add('itemImage');
+//   image.src = `./img/(${i}).jpg`;
+//   itemPicture.appendChild(image);
 
-  // Create a new item description element
-  const itemDescription = document.createElement('div');
-  itemDescription.classList.add('ItemDescription');
+//   // Create a new item description element
+//   const itemDescription = document.createElement('div');
+//   itemDescription.classList.add('ItemDescription');
 
-  // Create a new h2 element for the item name
-  const itemName = document.createElement('h2');
-  itemName.textContent = `Name ${i}`;
-  itemDescription.appendChild(itemName);
+//   // Create a new h2 element for the item name
+//   const itemName = document.createElement('h2');
+//   itemName.textContent = `Name ${i}`;
+//   itemDescription.appendChild(itemName);
 
-  // Create a new p element for the item price
-  const itemPrice = document.createElement('p');
-  itemPrice.classList.add('itemPreis');
-  itemPrice.textContent = 'Preis: 1,23€/100g';
-  itemDescription.appendChild(itemPrice);
+//   // Create a new p element for the item price
+//   const itemPrice = document.createElement('p');
+//   itemPrice.classList.add('itemPreis');
+//   itemPrice.textContent = 'Preis: 1,23€/100g';
+//   itemDescription.appendChild(itemPrice);
 
-  // Create a new p element for the item slogan
-  const itemSlogan = document.createElement('p');
-  itemSlogan.classList.add('itemWerbeSatz');
-  itemSlogan.textContent = 'Immer! Sehr! Lecker!';
-  itemDescription.appendChild(itemSlogan);
+//   // Create a new p element for the item slogan
+//   const itemSlogan = document.createElement('p');
+//   itemSlogan.classList.add('itemWerbeSatz');
+//   itemSlogan.textContent = 'Immer! Sehr! Lecker!';
+//   itemDescription.appendChild(itemSlogan);
 
-  // Append the link, item picture and item description to the item box
-  link.appendChild(itemPicture);
-  link.appendChild(itemDescription);
-  itemBox.appendChild(link);
+//   // Append the link, item picture and item description to the item box
+//   link.appendChild(itemPicture);
+//   link.appendChild(itemDescription);
+//   itemBox.appendChild(link);
 
-  // Append the item box to the target div
-  targetDiv.appendChild(itemBox);
-}
+//   // Append the item box to the target div
+//   targetDiv.appendChild(itemBox);
+// }
 
 
 // const aElement = document.querySelector('.itemBox a');
