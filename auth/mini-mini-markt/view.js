@@ -58,25 +58,44 @@ get(child(dbRef, `items/${sessionStorage.getItem("selected")}`)).then((snapshot)
     <div class="counter">
       <span style="padding-right: 10px">Preis:</span>
       <button class="counter-button" id="decrement">-</button>
-      <input type="number" id="counter-value" value="0">
+      <input type="number" id="counter-value" value="1">
       <button class="counter-button" id="increment">+</button>
     </div>
     <div id="buy">
-      <button id="buybutton">In den Warenkorb</button>
+      <button id="buybutton">Kaufen</button>
     </div>
   `;
         divElement.id = "d";
         parentElement.appendChild(divElement);
+        //add functionality to the buy-button
+        const counterValue = document.getElementById("counter-value");
+        document.getElementById("buybutton").onclick = function () {
+            //check if the counter is valid
+            if (counterValue.value <= 0 || counterValue.value > 10) {
+                console.warn("Invalid counter state!");
+                document.write("invalid Amount!");
+                return;
+            }
+            //is valid
+            const db = getDatabase();
+            console.log("Started writing to db");
+            console.log("Writing to address: " + `logins/${localStorage.getItem("user")}/warenkorb/1`);
+            console.log("Writing " + counterValue.value + "as amount");
+            set(ref(db, `logins/${localStorage.getItem("user")}/warenkorb/1`), {
+                amount: counterValue.value
+            });
+            console.log("Wrote to db!");
+        }
+
         isSiteLoaded = true;
 
-        const counterValue = document.getElementById("counter-value");
 
         document.getElementById("increment").addEventListener("click", function () {
             counterValue.value++;
         });
 
         document.getElementById("decrement").addEventListener("click", function () {
-            if (counterValue.value > 0) {
+            if (counterValue.value > 1) {
                 counterValue.value--;
             }
         });
@@ -154,7 +173,7 @@ function checkAdminPanel() {
     //if site is loaded check if user is admin and is he is, add the input fields
     get(child(dbRef, `logins/${localStorage.getItem("user")}`)).then((snapshot) => {
         if (snapshot.exists()) {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
             if (snapshot.val()["rank"] === "employee") {
                 console.log("You are an employee!");
                 //add the input fields
