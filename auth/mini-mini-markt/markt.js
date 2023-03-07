@@ -41,7 +41,7 @@ get(child(dbr, `items`)).then((snapshot) => {
     const targetDiv = document.querySelector('#main');
 
     // Create three item boxes with different names and images
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 9; i++) {
       // Create a new item box element
       const itemBox = document.createElement('div');
       itemBox.classList.add('itemBox');
